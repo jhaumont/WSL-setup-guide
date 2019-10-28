@@ -8,5 +8,3 @@
 * [Getting Started](doc/getting-started.md)
 * [Usefull Links](doc/usefull-links.md)
 
-## Slides
-

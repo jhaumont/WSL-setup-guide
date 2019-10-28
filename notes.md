@@ -12,3 +12,5 @@ https://github.com/sindresorhus/awesome/pull/1362
 
 {% embed url="https://github.com/yuk7/wsldl" %}
 
+Silent install with a config files ?
+
