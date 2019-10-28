@@ -19,7 +19,7 @@ export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 
 # Copy files
 # setup custome profile
-cp ${SOURCE_DIR}/.profile_jhaumont ~
+cp ${SOURCE_DIR}/.profile_custom ~
 cp ${SOURCE_DIR}/.bash_aliases ~
 # fix vi
 cp ${SOURCE_DIR}/.exrc ~
