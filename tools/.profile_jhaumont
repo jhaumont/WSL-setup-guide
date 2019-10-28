@@ -1,0 +1,34 @@
+# ~/.profile_jhaumont custom
+umask 027
+
+PATH=${KREW_ROOT:-$HOME/.krew}/bin:$HOME/.kubectx:$HOME/.kubetail:${PATH}
+export PATH
+
+# launch virtualenvwrapper
+export WORKON_HOME=/mnt/c/Users/jhaumont/Envs
+source virtualenvwrapper.sh
+
+export LC_ALL=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
+export LOCALE=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+. "$HOME/.ssh/environment"
+
+# Check if there is an entry in ssh-agent
+ssh-add -l &>/dev/null 
+if [[ $? -eq 1 ]]; then
+	ssh-add
+	ssh-add $HOME/.ssh/id_rsa.old
+fi 
+
+# Use windows docker engine
+export DOCKER_HOST=tcp://localhost:2375
+
+# completion scripts
+source <(kubectl completion bash)
+source <(helm completion bash)
+complete -C 'aws_completer' aws
+complete -C 'vault' vault
+source $HOME/.local/bin/az.completion.sh
