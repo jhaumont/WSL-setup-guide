@@ -46,3 +46,5 @@ https://m.nextinpact.com/news/108989-build-2020-wsl-2-gerera-gpu-et-interfaces-l
 https://youtu.be/EiPO5wC6KwM
 https://www.macg.co/ailleurs/2020/05/microsoft-poursuit-son-integration-de-linux-windows-10-114133
 https://www.howtogeek.com/674470/how-to-use-windows-10s-package-manager-winget/
+
+https://blog.zwindler.fr/2020/06/01/installer-microk8s-dans-wsl-2/

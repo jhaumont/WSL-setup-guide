@@ -1,6 +1,17 @@
 #!/bin/bash
 set -x
 
+export SOURCE_DIR="/mnt/c/WSL"
+export SETUP_DIR="/tmp/setup_wsl"
+export USER_DIR="/mnt/c/Users/Dzu-mark2"
+export HELM_INSTALL_DIR="/home/jlame/bin"
+export VAULT_VERSION="1.3.2"
+export HELM_VERSION="v2.16.3"
+export K9S_VERSION="0.15.1"
+export DOCKER_COMPOSE_VERSION="1.25.4"
+export AWS_AUTHENTICATOR_VERSION="0.5.0"
+export KREW_VERSION="v0.3.4"
+export YQ_VERSION="3.1.1"
 
 # setup
 mkdir -p ${SETUP_DIR} ~/bin ~/.helm/plugins ~/.docker
@@ -23,21 +34,10 @@ cp ${SOURCE_DIR}/start-ssh-agent ~/bin
 sudo cp ${SOURCE_DIR}/wsl.conf /etc
 sudo chmod 644 /etc/wsl.conf
 
-#sym link to share conf with windows (decomment if needed)
-# ln -s ${USER_DIR}/Documents/MobaXterm/home/.ssh ~/.ssh
-# ln -s ${USER_DIR}/.aws ~/.aws
-# ln -s ${USER_DIR}/.kube ~/.kube
-
 # Add custom profile sourcing to .profile
 echo '. ~/.profile_custom' >> ~/.profile
 
-
-# option pour :
-# - avoir un script custom en plus, dans un rep dédier
-# faire des read pour demander si .kube .aws .ssh 
-# setup git et vscode ?
-
-# update distrib
+# update ubuntu
 sudo apt update -y
 sudo apt full-upgrade -y
 
@@ -47,8 +47,8 @@ sudo apt install -y bash-completion man python3 python-pip python3-pip python3-v
 # Prepare repo
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
-curl -fsSL https://download.docker.com/linux/${DISTRIB}/gpg | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/${DISTRIB} $(lsb_release -cs) stable"
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 
 # Package installation (add a desciption for each) second part
 sudo apt update
@@ -103,8 +103,8 @@ sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.8 2
 
 # TODO : move to requirements file
 # modules python 
-pip install virtualenv virtualenvwrapper credstash pywinrm ansible awslogs azure-cli
-pip3 install awscli --upgrade --user
+# pip install virtualenv virtualenvwrapper pywinrm ansible awslogs azure-cli
+# pip3 install awscli --upgrade --user
 # curl -L https://aka.ms/InstallAzureCli | bash
 
 # TODO : remove this one ?
@@ -118,11 +118,14 @@ tar zxvf krew.tar.gz
 ./krew-"$(uname | tr '[:upper:]' '[:lower:]')_amd64" install \
     --manifest=krew.yaml --archive=krew.tar.gz
 
-
+#sym link to share conf with windows (decomment if needed)
+ln -s ${USER_DIR}/.ssh ~/.ssh
+ln -s ${USER_DIR}/.aws ~/.aws
+ln -s ${USER_DIR}/.kube ~/.kube
 
 # clean up setup dir
 rm -rf ${SETUP_DIR}
 
-echo "before using wsl, please do this 'wsl.exe -s Debian' in cmd prompt and create scheduled task (see https://github.com/bahamas10/windows-bash-ssh-agent)"
+echo "before using wsl, please do this 'wsl.exe -s Ubuntu' in cmd prompt and create scheduled task (see https://github.com/bahamas10/windows-bash-ssh-agent)"
 echo "To finalize docker engine access from wsl, finalize docker configuration on windows side based on this https://nickjanetakis.com/blog/setting-up-docker-for-windows-and-wsl-to-work-flawlessly"
 echo "install talend helm plugin manually https://github.com/Talend/helm-charts/blob/master/utils/talend-helm-plugin/README.md"

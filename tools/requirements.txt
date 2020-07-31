@@ -1,0 +1,9 @@
+virtualenv
+virtualenvwrapper
+credstash
+pywinrm
+ansible==2.7
+ansible-lint~=3.5
+awslogs
+azure-cli
+awscli
